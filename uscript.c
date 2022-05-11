@@ -79,6 +79,36 @@ uscript_t *uscript_run(editor_t *editor, char *path) {
     return uscript;
 }
 
+// FUZZING
+uscript_t *uscript_run_no_file(editor_t *editor, const uint8_t* data, size_t size) {
+    lua_State *L;
+    uscript_t *uscript;
+    L = luaL_newstate();
+    luaL_openlibs(L);
+    luaL_requiref(L, "mle", luaopen_mle, 1);
+
+    uscript = calloc(1, sizeof(uscript_t));
+    uscript->editor = editor;
+    uscript->L = L;
+
+    lua_pushpointer(L, (void*)uscript);
+    lua_setglobal(L, MLE_USCRIPT_KEY);
+    lua_pop(L, 1);
+
+    lua_getglobal(L, "_G");
+    lua_pushcfunction(L, _uscript_write);
+    lua_setfield(L, -2, "print");
+    lua_pop(L, 1);
+
+    lua_atpanic(L, _uscript_panic);
+
+
+    luaL_loadbuffer(L, data, size, NULL); // TODO err
+
+    lua_pcall(L, 0, 0, 0);
+    return uscript;
+}
+
 // Destroy uscript
 int uscript_destroy(uscript_t *uscript) {
     lua_close(uscript->L);

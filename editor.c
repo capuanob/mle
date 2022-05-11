@@ -80,7 +80,7 @@ int editor_init(editor_t *editor, int argc, char **argv) {
     FILE *rc;
     char *home_rc;
     rv = MLE_OK;
-    do {
+//    do {
         // Set editor defaults
         editor->is_in_init = 1;
         editor->tab_width = MLE_DEFAULT_TAB_WIDTH;
@@ -111,42 +111,42 @@ int editor_init(editor_t *editor, int argc, char **argv) {
         _editor_init_syntaxes(editor);
 
         // Parse rc files
-        if (!_editor_should_skip_rc(argv)) {
-            home_rc = NULL;
-            if (getenv("HOME")) {
-                asprintf(&home_rc, "%s/%s", getenv("HOME"), ".mlerc");
-                if (util_is_file(home_rc, "rb", &rc)) {
-                    rv = _editor_init_from_rc(editor, rc, home_rc);
-                    fclose(rc);
-                }
-                free(home_rc);
-            }
-            if (rv != MLE_OK) break;
-            if (util_is_file("/etc/mlerc", "rb", &rc)) {
-                rv = _editor_init_from_rc(editor, rc, "/etc/mlerc");
-                fclose(rc);
-            }
-            if (rv != MLE_OK) break;
-        }
-
-        // Parse cli args
-        rv = _editor_init_from_args(editor, argc, argv);
-        if (rv != MLE_OK) break;
-
-        // Init status bar
-        _editor_init_status(editor);
-
-        // Init bviews
-        _editor_init_bviews(editor, argc, argv);
-
-        // Init startup macro
-        _editor_init_headless_mode(editor);
-
-        // Init headless mode
-        _editor_init_startup_macro(editor);
-    } while(0);
-
-    editor->is_in_init = 0;
+//        if (!_editor_should_skip_rc(argv)) {
+//            home_rc = NULL;
+//            if (getenv("HOME")) {
+//                asprintf(&home_rc, "%s/%s", getenv("HOME"), ".mlerc");
+//                if (util_is_file(home_rc, "rb", &rc)) {
+//                    rv = _editor_init_from_rc(editor, rc, home_rc);
+//                    fclose(rc);
+//                }
+//                free(home_rc);
+//            }
+//            if (rv != MLE_OK) break;
+//            if (util_is_file("/etc/mlerc", "rb", &rc)) {
+//                rv = _editor_init_from_rc(editor, rc, "/etc/mlerc");
+//                fclose(rc);
+//            }
+//            if (rv != MLE_OK) break;
+//        }
+//
+//        // Parse cli args
+//        rv = _editor_init_from_args(editor, argc, argv);
+//        if (rv != MLE_OK) break;
+//
+//        // Init status bar
+//        _editor_init_status(editor);
+//
+//        // Init bviews
+//        _editor_init_bviews(editor, argc, argv);
+//
+//        // Init startup macro
+//        _editor_init_headless_mode(editor);
+//
+//        // Init headless mode
+//        _editor_init_startup_macro(editor);
+//    } while(0);
+//
+//    editor->is_in_init = 0;
     return rv;
 }
 

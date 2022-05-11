@@ -1,0 +1,5 @@
+project: mle
+target: mle-fuzz
+
+cmds:
+  - cmd: /mle-fuzz /corpus
