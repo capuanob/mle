@@ -15,13 +15,16 @@ int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size) {
 
     // Initialize editor
     memset(&_editor, 0, sizeof(editor_t));
-    editor_init(&_editor, 0, NULL);
-
-    script = uscript_run_no_file(&_editor, data, size);
-
-    // Cleanup
-    uscript_destroy(script);
-    editor_deinit(&_editor);
+    setlocale(LC_ALL, "");
+    if (editor_init(&_editor, 0, NULL) == MLE_OK) {
+	    script = uscript_run_no_file(&_editor, data, size);
+	    editor_run(&_editor);
+	    editor_deinit(&_editor);
+	    tb_shutdown();
+    } else {
+	    editor_deinit(&_editor);
+    }
+    return _editor.exit_code;
 }
 
 //int main(int argc, char **argv) {
