@@ -1,5 +1,5 @@
 project: mle
-target: mle-fuzz
+target: mle
 
 cmds:
-  - cmd: /mle-fuzz /corpus
+  - cmd: /mle /corpus
