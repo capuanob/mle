@@ -566,8 +566,7 @@ int aproc_destroy(aproc_t *aproc, int preempt);
 int aproc_drain_all(aproc_t *aprocs, int *ttyfd);
 
 // uscript functions
-uscript_t *uscript_run(editor_t *editor, char* path);
-uscript_t *uscript_run_no_file(editor_t *editor, const uint8_t* data, size_t size); // Edited signature for better fuzzing
+uscript_t *uscript_run(editor_t *editor, char *path);
 int uscript_destroy(uscript_t *uscript);
 
 // util functions
