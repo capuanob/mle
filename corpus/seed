@@ -1,0 +1,7 @@
+echo '-Ktest,,1'
+
+if [ -d ".git" ]; then
+  echo '-kcmd_grep,M-q,git grep --color=never -P -i -I -n %s 2>/dev/null'
+fi
+
+echo '-n test'
